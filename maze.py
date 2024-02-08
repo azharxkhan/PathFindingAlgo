@@ -1,3 +1,16 @@
+import pygame
+import sys
+
+# Define colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+
+# Set grid dimensions
+CELL_SIZE = 10
+GRID_WIDTH = 800
+GRID_HEIGHT = 400
+
+
 Grid = [
 [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
 [1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0],
@@ -96,3 +109,29 @@ Grid = [
 [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]  #80
 ]
 
+def draw_grid(screen, grid):
+    for y, row in enumerate(grid):
+        for x, cell in enumerate(row):
+            color = WHITE if cell == 0 else BLACK
+            pygame.draw.rect(screen, color, (y * CELL_SIZE, x * CELL_SIZE, CELL_SIZE, CELL_SIZE))
+
+def main():
+    pygame.init()
+    screen = pygame.display.set_mode((GRID_WIDTH, GRID_HEIGHT))
+    pygame.display.set_caption("Grid GUI")
+
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        screen.fill(WHITE)
+        draw_grid(screen, Grid)
+        pygame.display.flip()
+
+    pygame.quit()
+    sys.exit()
+
+if __name__ == "__main__":
+    main()
