@@ -1,5 +1,6 @@
 import pygame
 import sys
+import heapq
 
 # Define colors
 WHITE = (255, 255, 255)
@@ -9,6 +10,61 @@ BLACK = (0, 0, 0)
 CELL_SIZE = 10
 GRID_WIDTH = 800
 GRID_HEIGHT = 400
+
+
+# Define directions (up, down, left, right)
+directions = [(0, -1), (0, 1), (-1, 0), (1, 0)]
+
+def get_neighbors(grid, pos):
+    neighbors = []
+    for direction in directions:
+        neighbor_pos = (pos[0] + direction[0], pos[1] + direction[1])
+        if 0 <= neighbor_pos[0] < len(grid) and 0 <= neighbor_pos[1] < len(grid[0]) and grid[neighbor_pos[0]][neighbor_pos[1]] == 0:
+            neighbors.append(neighbor_pos)
+    return neighbors
+
+def dijkstra(grid, start, end):
+    visited = set()
+    distances = {start: 0}
+    previous = {}
+    queue = [(0, start)]
+
+    while queue:
+        current_distance, current_node = heapq.heappop(queue)
+
+        if current_node == end:
+            path = []
+            while current_node in previous:
+                path.append(current_node)
+                current_node = previous[current_node]
+            path.append(start)
+            return path[::-1]
+
+        if current_node in visited:
+            continue
+
+        visited.add(current_node)
+
+        for neighbor in get_neighbors(grid, current_node):
+            if neighbor in visited:
+                continue
+
+            new_distance = current_distance + 1
+
+            if neighbor not in distances or new_distance < distances[neighbor]:
+                distances[neighbor] = new_distance
+                heapq.heappush(queue, (new_distance, neighbor))
+                previous[neighbor] = current_node
+
+    return None
+
+
+# Initialize Pygame
+pygame.init()
+
+# Set up the display
+screen = pygame.display.set_mode((GRID_WIDTH, GRID_HEIGHT))
+pygame.display.set_caption("Maze")
 
 
 Grid = [
@@ -109,17 +165,16 @@ Grid = [
 [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]  #80
 ]
 
-def draw_grid(screen, grid):
-    for y, row in enumerate(grid):
+def draw_grid():
+    for y, row in enumerate(Grid):
         for x, cell in enumerate(row):
-            color = WHITE if cell == 0 else BLACK
+            if cell == 1:
+                color = BLACK
+            else:
+                color = WHITE
             pygame.draw.rect(screen, color, (y * CELL_SIZE, x * CELL_SIZE, CELL_SIZE, CELL_SIZE))
 
 def main():
-    pygame.init()
-    screen = pygame.display.set_mode((GRID_WIDTH, GRID_HEIGHT))
-    pygame.display.set_caption("Grid GUI")
-
     running = True
     while running:
         for event in pygame.event.get():
@@ -127,7 +182,7 @@ def main():
                 running = False
 
         screen.fill(WHITE)
-        draw_grid(screen, Grid)
+        draw_grid()
         pygame.display.flip()
 
     pygame.quit()

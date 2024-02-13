@@ -1,0 +1,3 @@
+Maze
+-This maze consists of 80 by 40 in landscape
+-It uses different algorithms to solve it
