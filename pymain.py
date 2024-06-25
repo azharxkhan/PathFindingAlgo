@@ -1,9 +1,7 @@
 import pygame
 import sys
 import time
-
-# Importing the algorithms from the existing files
-from algo import a_star, backtracking, dijkstra 
+from algo import a_star, backtracking, dijkstra
 
 # Initialize Pygame
 pygame.init()
@@ -24,7 +22,7 @@ GREEN = (0, 255, 0)
 font = pygame.font.Font(None, 36)
 
 # Menu options
-menu_options = ["Run Algorithm 1", "Run Algorithm 2", "Run Algorithm 3", "Exit"]
+menu_options = ["Run A* Algorithm", "Run Backtracking Algorithm", "Run Dijkstra Algorithm", "Exit"]
 selected_option = 0
 
 # Grid for the maze
@@ -149,15 +147,19 @@ def draw_grid(grid):
             pygame.draw.rect(screen, BLUE, (col * cell_width, row * cell_height, cell_width, cell_height), 1)
     pygame.display.flip()
 
+# Function to draw a single cell state
+def draw_state(state, color):
+    x, y = state
+    cell_width = screen_width // len(grid[0])
+    cell_height = screen_height // len(grid)
+    pygame.draw.rect(screen, color, (y * cell_width, x * cell_height, cell_width, cell_height))
+    pygame.display.flip()
+
 # Function to visualize the algorithm
 def visualize_algorithm(algorithm, grid):
     path = algorithm(grid)
     for position in path:
-        x, y = position
-        cell_width = screen_width // len(grid[0])
-        cell_height = screen_height // len(grid)
-        pygame.draw.rect(screen, GREEN, (y * cell_width, x * cell_height, cell_width, cell_height))
-        pygame.display.flip()
+        draw_state(position, GREEN)
         time.sleep(0.1)
 
 # Main loop
