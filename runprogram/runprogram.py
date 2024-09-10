@@ -1,7 +1,9 @@
 import pygame
 import sys
 import time
-from algo import a_star, backtracking, dijkstra
+from algo.a_star import a_star
+from algo.backtracking import backtracking
+from algo.dijkstra import dijkstra
 
 # Initialize Pygame
 pygame.init()
@@ -68,9 +70,10 @@ grid = [
     [1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0]]
 
+
 # Start and end positions
-start = (1, 1)  # Starting point in the grid
-end = (len(grid) - 2, len(grid[0]) - 2)  # End point in the grid
+start = (0, 0)  # Starting point in the grid
+end = (len(grid) - 1, len(grid[0]) - 1)  # End point in the grid
 
 # Function to draw the menu
 def draw_menu():
@@ -116,7 +119,7 @@ def visualize_algorithm(algorithm, grid, start, end):
         return
     for position in path:
         draw_state(position, GREEN)
-        time.sleep(0.1)
+        time.sleep(0.1)  # Increase the delay time to slow down the visualization
 
 # Main loop
 running = True

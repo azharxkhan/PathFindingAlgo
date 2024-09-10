@@ -10,7 +10,8 @@ def get_neighbors(current_state, grid):
     x, y = current_state
     for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
         nx, ny = x + dx, y + dy
-        if 0 <= nx < len(grid) and 0 <= ny < len(grid[0]) and grid[nx][ny] == 1:
+        # Modify to treat 0 as the traversable path
+        if 0 <= nx < len(grid) and 0 <= ny < len(grid[0]) and grid[nx][ny] == 0:
             neighbors.append((nx, ny))
     return neighbors
 
