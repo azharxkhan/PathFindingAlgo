@@ -1,3 +1,11 @@
 Maze
 -This maze consists of 80 by 40 in landscape
 -It uses different algorithms to solve it
+-It should show visual of check move
+-It should show visual of solution
+-It should show visual of the maze
+-It should show visual of the path
+-It should show visual of the start and end points
+-It should show visual of the wall and empty space
+-It should show visual of the algorithm used
+-It should show visual of the time taken to solve the maze
