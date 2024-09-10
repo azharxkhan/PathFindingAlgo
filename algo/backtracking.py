@@ -1,51 +1,30 @@
-import heapq
+def is_safe(grid, x, y):
+    # Check if (x, y) is within the bounds and not an obstacle
+    return 0 <= x < len(grid) and 0 <= y < len(grid[0]) and grid[x][y] == 1
 
-def heuristic(current_state, goal_state):
-    x1, y1 = current_state
-    x2, y2 = goal_state
-    return abs(x1 - x2) + abs(y1 - y2)
-
-def get_neighbors(current_state, grid):
-    neighbors = []
-    x, y = current_state
-    for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
-        nx, ny = x + dx, y + dy
-        if 0 <= nx < len(grid) and 0 <= ny < len(grid[0]) and grid[nx][ny] == 1:
-            neighbors.append((nx, ny))
-    return neighbors
-
-def reconstruct_path(came_from, current_state):
+def backtracking(grid, start, end):
     path = []
-    while current_state in came_from:
-        path.append(current_state)
-        current_state = came_from[current_state]
-    path.append(current_state)  # add the start state
-    return path[::-1]
+    if solve_backtracking(grid, start[0], start[1], end, path):
+        return path
+    return []  # Return an empty path if no solution is found
 
+def solve_backtracking(grid, x, y, end, path):
+    # Base case: if the end is reached, return True
+    if (x, y) == end:
+        path.append((x, y))
+        return True
 
-def backtracking(grid):
-    start_state = (1, 1)
-    goal_state = (78, 38)
-    path = []
-
-    def backtrack(x, y):
-        if (x, y) == goal_state:
-            return True
-        if grid[x][y] == 0:
-            return False
-
-        grid[x][y] = 0  # mark as visited
+    # Check if the current position is valid
+    if is_safe(grid, x, y):
+        # Mark the current cell as part of the path
         path.append((x, y))
 
-        for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
-            if backtrack(x + dx, y + dy):
+        # Try moving in each direction (right, down, left, up)
+        for dx, dy in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
+            if solve_backtracking(grid, x + dx, y + dy, end, path):
                 return True
 
+        # Backtrack: remove the current cell from the path
         path.pop()
-        return False
 
-    if backtrack(*start_state):
-        return path
-    return []
-
-
+    return False
