@@ -19,21 +19,19 @@ def reconstruct_path(came_from, current_state):
     while current_state in came_from:
         path.append(current_state)
         current_state = came_from[current_state]
-    path.append(current_state)  # add the start state
+    path.append(current_state)  
     return path[::-1]
 
-def dijkstra(grid):
-    start_state = (1, 1)
-    goal_state = (78, 38)
+def dijkstra(grid, start, goal):
     open_set = []
-    heapq.heappush(open_set, (0, start_state))
+    heapq.heappush(open_set, (0, start))
     came_from = {}
-    distance = {start_state: 0}
+    distance = {start: 0}
 
     while open_set:
         current_distance, current_state = heapq.heappop(open_set)
 
-        if current_state == goal_state:
+        if current_state == goal:
             return reconstruct_path(came_from, current_state)
 
         for neighbor_state in get_neighbors(current_state, grid):
