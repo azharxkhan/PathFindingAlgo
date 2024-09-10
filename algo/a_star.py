@@ -22,20 +22,19 @@ def reconstruct_path(came_from, current_state):
     path.append(current_state)  # add the start state
     return path[::-1]
 
-def a_star(grid):
-    start_state = (1, 1)
-    goal_state = (78, 38)
+# Modify this function to accept start and goal as parameters
+def a_star(grid, start, goal):
     open_set = []
     closed_set = set()
-    heapq.heappush(open_set, (0, start_state))
+    heapq.heappush(open_set, (0, start))
     came_from = {}
-    g_score = {start_state: 0}
-    f_score = {start_state: heuristic(start_state, goal_state)}
+    g_score = {start: 0}
+    f_score = {start: heuristic(start, goal)}
 
     while open_set:
         _, current_state = heapq.heappop(open_set)
 
-        if current_state == goal_state:
+        if current_state == goal:
             return reconstruct_path(came_from, current_state)
 
         closed_set.add(current_state)
@@ -49,8 +48,7 @@ def a_star(grid):
             if neighbor_state not in g_score or tentative_g_score < g_score[neighbor_state]:
                 came_from[neighbor_state] = current_state
                 g_score[neighbor_state] = tentative_g_score
-                f_score[neighbor_state] = g_score[neighbor_state] + heuristic(neighbor_state, goal_state)
+                f_score[neighbor_state] = g_score[neighbor_state] + heuristic(neighbor_state, goal)
                 heapq.heappush(open_set, (f_score[neighbor_state], neighbor_state))
 
     return []
-
