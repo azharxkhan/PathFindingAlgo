@@ -105,5 +105,5 @@ def main():
         print(row)
 
 
-if __name__ == '__mai__':
+if __name__ == '__main__':
     main()
