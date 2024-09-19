@@ -5,7 +5,6 @@ from algo.a_star import a_star
 from algo.backtracking import backtracking
 from algo.dijkstra import dijkstra
 
-# Initialize Pygame
 pygame.init()
 
 # Screen dimensions
