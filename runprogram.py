@@ -145,31 +145,35 @@ def visualize_algorithm(algorithm, grid, start, end):
         draw_state(position, GREEN)
         time.sleep(0.1)
 
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
-                selected_option = (selected_option - 1) % len(menu_options)
-            elif event.key == pygame.K_DOWN:
-                selected_option = (selected_option + 1) % len(menu_options)
-            elif event.key == pygame.K_RETURN:
-                if selected_option == len(menu_options) - 1:
-                    running = False
-                else:
-                    screen.fill(WHITE)
-                    draw_grid(grid)
-                    draw_start_end()
-                    if selected_option == 0:
-                        visualize_algorithm(a_star, grid, start, end)
-                    elif selected_option == 1:
-                        visualize_algorithm(backtracking, grid, start, end)
-                    elif selected_option == 2:
-                        visualize_algorithm(dijkstra, grid, start, end)
+def main():
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    selected_option = (selected_option - 1) % len(menu_options)
+                elif event.key == pygame.K_DOWN:
+                    selected_option = (selected_option + 1) % len(menu_options)
+                elif event.key == pygame.K_RETURN:
+                    if selected_option == len(menu_options) - 1:
+                        running = False
+                    else:
+                        screen.fill(WHITE)
+                        draw_grid(grid)
+                        draw_start_end()
+                        if selected_option == 0:
+                            visualize_algorithm(a_star, grid, start, end)
+                        elif selected_option == 1:
+                            visualize_algorithm(backtracking, grid, start, end)
+                        elif selected_option == 2:
+                            visualize_algorithm(dijkstra, grid, start, end)
 
-    draw_menu()
+        draw_menu()
 
-pygame.quit()
-sys.exit()
+    pygame.quit()
+    sys.exit()
+
+if __name__ == '__main__':
+    main()
