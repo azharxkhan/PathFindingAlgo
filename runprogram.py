@@ -146,6 +146,8 @@ def visualize_algorithm(algorithm, grid, start, end):
         time.sleep(0.1)
 
 def main():
+    global selected_option
+    
     running = True
     while running:
         for event in pygame.event.get():
