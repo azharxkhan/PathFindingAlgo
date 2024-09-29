@@ -159,9 +159,9 @@ def handle_menu_input(selected_option):
     return selected_option
 
 def main():
-    global selected_option
-    
+    selected_option = 0
     running = True
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
