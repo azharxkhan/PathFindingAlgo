@@ -24,7 +24,6 @@ font = pygame.font.Font(None, 36)
 
 # Menu options
 menu_options = ["Run A* Algorithm", "Run Backtracking Algorithm", "Run Dijkstra Algorithm", "Exit"]
-selected_option = 0
 
 # Grid for the maze
 grid = [
