@@ -145,6 +145,19 @@ def visualize_algorithm(algorithm, grid, start, end):
         draw_state(position, GREEN)
         time.sleep(0.1)
 
+def handle_menu_input(selected_option):
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            return -1
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                selected_option = (selected_option - 1) % len(menu_options)
+            elif event.key == pygame.K_DOWN:
+                selected_option = (selected_option + 1) % len(menu_options)
+            elif event.key == pygame.K_RETURN:
+                return selected_option
+    return selected_option
+
 def main():
     global selected_option
     
