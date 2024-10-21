@@ -10,7 +10,6 @@ def get_neighbors(current_state, grid):
     x, y = current_state
     for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
         nx, ny = x + dx, y + dy
-        # Modify to treat 0 as the traversable path
         if 0 <= nx < len(grid) and 0 <= ny < len(grid[0]) and grid[nx][ny] == 0:
             neighbors.append((nx, ny))
     return neighbors
@@ -20,10 +19,9 @@ def reconstruct_path(came_from, current_state):
     while current_state in came_from:
         path.append(current_state)
         current_state = came_from[current_state]
-    path.append(current_state)  # add the start state
+    path.append(current_state)  
     return path[::-1]
 
-# Modify this function to accept start and goal as parameters
 def a_star(grid, start, goal):
     open_set = []
     closed_set = set()
