@@ -88,6 +88,9 @@ After selecting an algorithm, the program will display the maze, and the chosen 
 ### Dijkstra Algorithm
 - Finds the shortest path from the start to all other points in the grid. Unlike A*, it doesn’t use heuristics, so it explores more paths.
 
+### Flood Fill Algorithm
+- A region-filling algorithm that starts at a given point and spreads to all reachable, connected points. It doesn’t focus on finding the shortest path but instead explores an entire region.
+
 ## How the Maze Was Created
 
 The maze was originally hand-drawn on graph paper, and the drawing was then translated into a grid format where:
