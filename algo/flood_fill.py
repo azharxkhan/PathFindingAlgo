@@ -1,34 +1,51 @@
-def flood_fill(grid, start, fill_value=2):
+def flood_fill(grid, start, end):
     """
-    Flood fill algorithm to fill a connected area in the grid starting from 'start'.
+    Flood fill algorithm to find a path from 'start' to 'end' in the grid.
 
     Args:
         grid (list of list of int): The grid representing the space, where 0 means empty space and 1 means wall.
         start (tuple): The starting point (x, y) for the flood fill.
-        fill_value (int): The value to fill the connected area with (default is 2).
+        end (tuple): The ending point (x, y) to stop the flood fill.
 
     Returns:
-        list of list of int: The grid with the filled area.
+        list of tuple: The path from start to end if reachable, otherwise an empty list.
     """
     x, y = start
     if grid[x][y] != 0:  
-        return grid
+        return []
 
     stack = [start]
-    original_value = grid[x][y]
+    path = []
+    visited = set()
 
     while stack:
-        x, y = stack.pop()
+        current = stack.pop()
+        if current in visited:
+            continue
+        visited.add(current)
 
-        grid[x][y] = fill_value
+        path.append(current)
+        if current == end:
+            return path
 
-        for nx, ny in get_neighbors((x, y), grid):
-            if grid[nx][ny] == original_value:  
+        for nx, ny in get_neighbors(current, grid):
+            if (nx, ny) not in visited:  
                 stack.append((nx, ny))
 
-    return grid
+    return []  
+
 
 def get_neighbors(current_state, grid):
+    """
+    Get valid neighbors of the current state within the grid.
+
+    Args:
+        current_state (tuple): The current position (x, y).
+        grid (list of list of int): The grid representing the space.
+
+    Returns:
+        list of tuple: Valid neighbor positions.
+    """
     neighbors = []
     x, y = current_state
     for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
