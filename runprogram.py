@@ -4,6 +4,7 @@ import time
 from algo.a_star import a_star
 from algo.backtracking import backtracking
 from algo.dijkstra import dijkstra
+from algo.flood_fill import flood_fill 
 
 from grids.hardcoded_grid import grid
 
@@ -25,7 +26,7 @@ GREEN = (0, 255, 0)
 font = pygame.font.Font(None, 36)
 
 # Menu options
-menu_options = ["Run A* Algorithm", "Run Backtracking Algorithm", "Run Dijkstra Algorithm", "Exit"]
+menu_options = ["Run A* Algorithm", "Run Backtracking Algorithm", "Run Dijkstra Algorithm", "Run Flood Fill Algorithm", "Exit"]
 selected_option = 0
 
 # Start and end positions
@@ -146,6 +147,8 @@ def main():
                     visualize_algorithm(backtracking, grid, start, end)
                 elif selected_option == 2:
                     visualize_algorithm(dijkstra, grid, start, end)
+                elif selected_option == 3:
+                    visualize_algorithm(flood_fill, grid, start, end)
 
     pygame.quit()
     sys.exit()
